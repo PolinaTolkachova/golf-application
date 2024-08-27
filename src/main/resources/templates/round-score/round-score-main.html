@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Round score</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link th:href="@{/styles/main.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/action.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+
+
+
+
+</style>
+<body>
+
+<!--Header-->
+<header th:insert="~{blocks/header :: header}"></header>
+
+<div class="page-template">
+    <div class="one-line-elements">
+        <h3>ROUND SCORES</h3>
+
+        <!-- Button to add new round score -->
+        <a th:href=" '/round-score/input' " class="btn btn-secondary btn-lg active"><h5>Add NEW round score</h5></a>
+    </div>
+
+    <!-- Input to search the table -->
+    <div class="one-line-elements">
+        <input class="form-control" id="scorecards" type="text" placeholder="Quick Search..">
+    </div>
+
+    <!-- Clients table -->
+    <div class="table_rounds">
+        <table class="table table-sm table-striped" id="scorecardsTable">
+            <thead>
+                <tr mr-1>
+                    <th scope="col">Id</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Player</th>
+                    <th scope="col">HCP</th>
+                    <th scope="col">Competition</th>
+                    <th scope="col">1</th>
+                    <th scope="col">2</th>
+                    <th scope="col">3</th>
+                    <th scope="col">4</th>
+                    <th scope="col">5</th>
+                    <th scope="col">6</th>
+                    <th scope="col">7</th>
+                    <th scope="col">8</th>
+                    <th scope="col">9</th>
+                    <th scope="col">10</th>
+                    <th scope="col">11</th>
+                    <th scope="col">12</th>
+                    <th scope="col">13</th>
+                    <th scope="col">14</th>
+                    <th scope="col">15</th>
+                    <th scope="col">16</th>
+                    <th scope="col">17</th>
+                    <th scope="col">18</th>
+                    <th scope="col">Stroke</th>
+                    <th scope="col">Penalty</th>
+                    <th scope="col">GrossScore</th>
+                    <th scope="col">NetScore</th>
+                    <th scope="col">NetScorePar</th>
+                    <th scope="col">Stableford</th>
+                </tr>
+            </thead>
+            <tbody id="scorecardsTableBody">
+                <div th:each="el : ${roundScore}">
+                    <tr>
+                        <td><a th:href=" '/round-score/' + ${el.id} "><h6 th:text="${el.id}"/></a></td>
+<!--                        <td><h6 th:text="${el.id}"/></td>-->
+                        <td><h6 th:text="${el.date}"/></td>
+                        <td><a th:href=" '/player/' + ${el.getPlayer().id} ">
+                            <h6 th:text="${el.getPlayer().surname + ' ' + el.getPlayer().name}"/></a></td>
+                        <td><h6 th:text="${el.player.hcp}"/></td>
+                        <td><h6 th:text="${el.getCompetition().getName()}"/></td>
+                        <td><h6 th:text="${el.scores.get(0).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(1).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(2).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(3).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(4).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(5).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(6).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(7).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(8).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(9).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(10).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(11).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(12).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(13).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(14).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(15).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(16).getStroke}"/></td>
+                        <td><h6 th:text="${el.scores.get(17).getStroke}"/></td>
+                        <td><h6><b th:text="${el.getSumStroke}"/></h6></td>
+                        <td><h6><b th:text="${el.sumPenalty}"/></h6></td>
+                        <td><h6><b th:text="${el.sumGrossScore}"/></h6></td>
+                        <td><h6><b th:text="${el.sumNetScore}"/></h6></td>
+                        <td><h6><b th:text="${el.sumNetScorePar}"/></h6></td>
+                        <td><h6><b th:text="${el.sumStableford}"/></h6></td>
+                    </tr>
+                </div>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Footer-->
+<div th:insert="~{blocks/footer :: footer}"></div>
+
+</body>
+</html>

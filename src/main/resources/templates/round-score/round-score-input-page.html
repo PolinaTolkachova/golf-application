@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Round score input page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link th:href="@{/styles/main.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/action.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    table {
+        border-collapse: separate;
+        border-spacing: 0em 0.3em;
+        /*margin: 1rem auto;*/
+        /*margin: 1rem;*/
+    }
+    td {
+        /*padding: 0.1rem 1rem;*/
+        border-radius: 6px;
+        border: 1px solid grey;
+        background-color: #ebeeed;
+        height: 30px;
+    }
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 80px; /* Set the width for the first column */
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 100px; /* Set the width for the second column */
+    }
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 100px; /* Set the width for the tird column */
+    }
+    .input-cell {
+        background-color: #ebeeed;
+        border: none; /* Remove input border */
+        width: 100%; /* Make the input take the full width of the cell */
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const holesContainer = document.getElementById('holesContainer');
+        for (let hole = 0; hole < 18; hole++) {
+            const holeDiv = document.createElement('div');
+            holeDiv.innerHTML = `
+            <div style="display: inline-block; width: 650px;">
+                <h6 style="display: inline-block; margin-right: 20px; width: 60px;">Hole ${hole + 1}</h6>
+                <label>
+                    <input type="text" name="strokes[${hole}]" placeholder="Enter score ${hole}" min="1"
+                    required class="input-cell"
+                    style="width: 115px; border: 1px solid grey; background-color: #ebeeed; border-radius: 5px; padding: 3px;"/>
+                </label>
+                <label><input type="text" name="penalties[${hole}]" placeholder="Enter penalty ${hole}" value="0" min="0"
+                    required class="input-cell"
+                    style="width: 80px; border: 1px solid grey; background-color: #ebeeed; border-radius: 5px; padding: 3px;"/>
+                </label>
+            </div>
+        `;
+            holesContainer.appendChild(holeDiv);
+        }
+    });
+</script>
+
+<body>
+
+<!--Header-->
+<header th:insert="~{blocks/header :: header}"></header>
+
+<h1>Enter Your Round score</h1>
+
+<form action="submit" method="post">
+
+<div>
+
+        <!-- Player name and surname input -->
+        <div style="display: flex; gap: 10px; align-items: baseline; padding-bottom: 10px">
+            <h5 style="width: 120px">Player:</h5>
+            <input type="text" id="playerSurnameNameInput" name="playerSurnameName"
+                   placeholder="Choose player" list="playerSurnameNames" required
+                   style="width: 180px; border: 1px solid grey; background-color: #ebeeed; border-radius: 5px; padding: 3px;"/>
+            <datalist id="playerSurnameNames">
+                <option th:each="player : ${playersSurnameNameList}" th:value="${player}" th:text="${player}">
+                </option>
+            </datalist>
+
+        </div>
+
+    <select id="competitionSelect" onchange="fetchRounds()">
+        <option value="">Select a competition</option>
+        <!-- Populate competition options dynamically from the model attribute -->
+        <option th:each="competition : ${competitions}" th:value="${competition.id}" th:text="${competition.name}"></option>
+    </select>
+
+    <select id="roundSelect">
+        <option value="">Select a round</option>
+        <!-- Rounds options will be populated dynamically based on the selected competition -->
+    </select>
+
+    <script>
+function fetchRounds() {
+    var competitionId = document.getElementById("competitionSelect").value;
+    console.log('Fetching rounds for competition:', competitionId);
+
+    if (competitionId) {
+        fetch("/competition/" + competitionId + "/rounds")
+            .then(response => response.json())
+            .then(data => {
+                console.log('Received data:', data);
+                var roundSelect = document.getElementById("roundSelect");
+                roundSelect.innerHTML = ""; // Clear existing options
+                data.forEach(round => {
+                    var option = document.createElement("option");
+                    option.value = round.id;
+                    option.text = round.name;
+                    roundSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching rounds:', error));
+    } else {
+        // Clear round options if no competition is selected
+        console.log('No competition selected. Clearing round options.');
+        var roundSelect = document.getElementById("roundSelect");
+        roundSelect.innerHTML = "";
+    }
+}
+    </script>
+
+
+    <div style="display: flex; gap: 10px; align-items: baseline; padding-bottom: 10px">
+        <h5 style="width: 120px">Competition:</h5>
+        <input type="text" id="competitionNameInput" name="competitionName"
+               placeholder="Choose competition" list="competitionNames" required
+               style="width: 180px; border: 1px solid grey; background-color: #ebeeed; border-radius: 5px; padding: 3px;"/>
+        <datalist id="competitionNames">
+            <option th:each="competition : ${competitions}" th:value="${competition.name}"
+                    th:text="${competition.name}">
+            </option>
+        </datalist>
+    </div>
+
+    <!-- Input the date of the round -->
+    <div style="display: flex; gap: 10px; align-items: baseline; padding-bottom: 15px">
+        <h5 style="width: 120px">Date:</h5>
+        <input type="date" id="dateInput" name="date"
+               placeholder="Enter date (dd/mm/yyyy)" required
+               style="width: 180px; border: 1px solid grey; background-color: #ebeeed; border-radius: 5px; padding: 3px;"/>
+    </div>
+</div>
+    <div>
+        <h6 style="display: inline-block; width: 97px"></h6>
+        <h6 style="display: inline-block; width: 74px">Score</h6>
+        <h6 style="display: inline-block; width: 80px">Penalty</h6>
+    </div>
+
+    <div id="holesContainer" style="padding-bottom: 30px"></div>
+
+    <!-- Submit button -->
+    <button class="btn btn-secondary btn-lg active" type="submit">Submit Round score</button>
+
+</form>
+
+</body>
