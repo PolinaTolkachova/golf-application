@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Your round score page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link th:href="@{/styles/main.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/action.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    table {
+        border-collapse: separate;
+        border-spacing: 0.5em 0.3em;
+        /*margin: 1rem auto;*/
+        /*margin: 1rem;*/
+    }
+    td {
+        /*padding: 0.1rem 1rem;*/
+        border-radius: 6px;
+        border: 1px solid grey;
+        background-color: #ebeeed;
+        height: 30px;
+    }
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 80px; /* Set the width for the first column */
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 130px; /* Set the width for the second column */
+    }
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 60px; /* Set the width for the third column */
+    }
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: 90px; /* Set the width for the third column */
+    }
+    th:nth-child(5),
+    td:nth-child(5) {
+        width: 80px; /* Set the width for the third column */
+    }
+    th:nth-child(6),
+    td:nth-child(6) {
+        width: 130px; /* Set the width for the third column */
+    }
+</style>
+
+<body>
+<!--Header-->
+<header th:insert="~{blocks/header :: header}"></header>
+
+    <h1>Your Round Score Page</h1>
+
+    <div style="display: flex; gap: 30px">
+        <h5>Player:</h5>
+        <h5 th:text="${player.getSurname() + ' ' + player.getName()}"/>
+    </div>
+
+    <div style="display: flex; gap: 30px">
+        <h5>Player HCP:</h5>
+        <h5 th:text="${player.hcp}"/>
+    </div>
+
+    <div style="display: flex; gap: 43px">
+        <h5>Date:</h5>
+        <h5 th:text="${roundScore.date}"/>
+    </div>
+
+    <div style="display: flex; gap: 23px">
+        <h5>Course:</h5>
+        <h5 th:text="${roundScore.getCompetition().getCourse().name}"/>
+    </div>
+
+    <!--Table with round score-->
+    <table>
+        <tbody th:each="e : ${roundScore}">
+        <tr>
+            <th></th>
+            <td style="background: white; border: white" align="center">Stroke</td>
+            <td style="background: white; border: white" align="center">Par</td>
+            <td style="background: white; border: white" align="center">Penalty</td>
+            <td style="background: white; border: white" align="center">Gross Score</td>
+            <td style="background: white; border: white" align="center">StrokeIndex</td>
+            <td style="background: white; border: white" align="center">Net Score</td>
+            <td style="background: white; border: white" align="center">Net Score Par</td>
+            <td style="background: white; border: white" align="center">ScoreSubtractPar</td>
+            <td style="background: white; border: white" align="center">ScoreSubtractParHcp</td>
+            <td style="background: white; border: white" align="center">Stableford</td>
+        </tr>
+            <tr>
+                <th>Hole 1:</th>
+                <td align="center" th:text="${e.scores.get(0).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(0).getPar}"/>
+                <td align="center" th:text="${e.scores.get(0).penalty}"/>
+                <td align="center" th:text="${e.scores.get(0).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(0).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(0).netScore}"/>
+                <td align="center" th:text="${e.scores.get(0).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(0).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(0).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(0).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 2:</th>
+                <td align="center" th:text="${e.scores.get(1).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(1).getPar}"/>
+                <td align="center" th:text="${e.scores.get(1).penalty}"/>
+                <td align="center" th:text="${e.scores.get(1).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(1).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(1).netScore}"/>
+                <td align="center" th:text="${e.scores.get(1).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(1).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(1).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(1).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 3:</th>
+                <td align="center" th:text="${e.scores.get(2).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(2).getPar}"/>
+                <td align="center" th:text="${e.scores.get(2).penalty}"/>
+                <td align="center" th:text="${e.scores.get(2).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(2).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(2).netScore}"/>
+                <td align="center" th:text="${e.scores.get(2).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(2).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(2).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(2).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 4:</th>
+                <td align="center" th:text="${e.scores.get(3).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(3).getPar}"/>
+                <td align="center" th:text="${e.scores.get(3).penalty}"/>
+                <td align="center" th:text="${e.scores.get(3).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(3).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(3).netScore}"/>
+                <td align="center" th:text="${e.scores.get(3).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(3).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(3).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(3).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 5:</th>
+                <td align="center" th:text="${e.scores.get(4).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(4).getPar}"/>
+                <td align="center" th:text="${e.scores.get(4).penalty}"/>
+                <td align="center" th:text="${e.scores.get(4).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(4).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(4).netScore}"/>
+                <td align="center" th:text="${e.scores.get(4).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(4).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(4).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(4).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 6:</th>
+                <td align="center" th:text="${e.scores.get(5).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(5).getPar}"/>
+                <td align="center" th:text="${e.scores.get(5).penalty}"/>
+                <td align="center" th:text="${e.scores.get(5).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(5).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(5).netScore}"/>
+                <td align="center" th:text="${e.scores.get(5).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(5).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(5).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(5).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 7:</th>
+                <td align="center" th:text="${e.scores.get(6).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(6).getPar}"/>
+                <td align="center" th:text="${e.scores.get(6).penalty}"/>
+                <td align="center" th:text="${e.scores.get(6).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(6).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(6).netScore}"/>
+                <td align="center" th:text="${e.scores.get(6).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(6).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(6).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(6).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 8:</th>
+                <td align="center" th:text="${e.scores.get(7).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(7).getPar}"/>
+                <td align="center" th:text="${e.scores.get(7).penalty}"/>
+                <td align="center" th:text="${e.scores.get(7).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(7).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(7).netScore}"/>
+                <td align="center" th:text="${e.scores.get(7).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(7).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(7).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(7).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 9:</th>
+                <td align="center" th:text="${e.scores.get(8).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(8).getPar}"/>
+                <td align="center" th:text="${e.scores.get(8).penalty}"/>
+                <td align="center" th:text="${e.scores.get(8).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(8).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(8).netScore}"/>
+                <td align="center" th:text="${e.scores.get(8).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(8).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(8).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(8).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 10:</th>
+                <td align="center" th:text="${e.scores.get(9).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(9).getPar}"/>
+                <td align="center" th:text="${e.scores.get(9).penalty}"/>
+                <td align="center" th:text="${e.scores.get(9).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(9).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(9).netScore}"/>
+                <td align="center" th:text="${e.scores.get(9).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(9).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(9).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(9).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 11:</th>
+                <td align="center" th:text="${e.scores.get(10).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(10).getPar}"/>
+                <td align="center" th:text="${e.scores.get(10).penalty}"/>
+                <td align="center" th:text="${e.scores.get(10).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(10).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(10).netScore}"/>
+                <td align="center" th:text="${e.scores.get(10).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(10).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(10).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(10).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 12:</th>
+                <td align="center" th:text="${e.scores.get(11).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(11).getPar}"/>
+                <td align="center" th:text="${e.scores.get(11).penalty}"/>
+                <td align="center" th:text="${e.scores.get(11).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(11).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(11).netScore}"/>
+                <td align="center" th:text="${e.scores.get(11).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(11).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(11).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(11).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 13:</th>
+                <td align="center" th:text="${e.scores.get(12).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(12).getPar}"/>
+                <td align="center" th:text="${e.scores.get(12).penalty}"/>
+                <td align="center" th:text="${e.scores.get(12).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(12).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(12).netScore}"/>
+                <td align="center" th:text="${e.scores.get(12).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(12).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(12).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(12).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 14:</th>
+                <td align="center" th:text="${e.scores.get(13).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(13).getPar}"/>
+                <td align="center" th:text="${e.scores.get(13).penalty}"/>
+                <td align="center" th:text="${e.scores.get(13).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(13).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(13).netScore}"/>
+                <td align="center" th:text="${e.scores.get(13).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(13).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(13).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(13).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 15:</th>
+                <td align="center" th:text="${e.scores.get(14).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(14).getPar}"/>
+                <td align="center" th:text="${e.scores.get(14).penalty}"/>
+                <td align="center" th:text="${e.scores.get(14).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(14).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(14).netScore}"/>
+                <td align="center" th:text="${e.scores.get(14).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(14).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(14).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(14).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 16:</th>
+                <td align="center" th:text="${e.scores.get(15).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(15).getPar}"/>
+                <td align="center" th:text="${e.scores.get(15).penalty}"/>
+                <td align="center" th:text="${e.scores.get(15).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(15).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(15).netScore}"/>
+                <td align="center" th:text="${e.scores.get(15).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(15).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(15).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(15).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 17:</th>
+                <td align="center" th:text="${e.scores.get(16).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(16).getPar}"/>
+                <td align="center" th:text="${e.scores.get(16).penalty}"/>
+                <td align="center" th:text="${e.scores.get(16).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(16).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(16).netScore}"/>
+                <td align="center" th:text="${e.scores.get(16).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(16).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(16).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(16).stableford}"/>
+            </tr>
+            <tr>
+                <th>Hole 18:</th>
+                <td align="center" th:text="${e.scores.get(17).stroke}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(17).getPar}"/>
+                <td align="center" th:text="${e.scores.get(17).penalty}"/>
+                <td align="center" th:text="${e.scores.get(17).grossScore}"/>
+                <td style="background-color: #9b9b9b" align="center" th:text="${e.getCompetition.getCourse.getHoles.get(17).getStrokeIndex}"/>
+                <td align="center" th:text="${e.scores.get(17).netScore}"/>
+                <td align="center" th:text="${e.scores.get(17).netScorePar}"/>
+
+                <td align="center" th:text="${e.scores.get(17).scoreSubtractPar}"/>
+                <td align="center" th:text="${e.scores.get(17).scoreSubtractParHcp}"/>
+                <td align="center" th:text="${e.scores.get(17).stableford}"/>
+            </tr>
+
+             <!--Sum of the round score-->
+            <tr style="height: 45px">
+                <th style="vertical-align: bottom" ><h4><b>Sum:</b></h4></th>
+                <td style="vertical-align: bottom" align="center"><h4><b th:text="${e.sumStroke}"/></h4></td>
+                <td style="vertical-align: bottom; background-color: #9b9b9b" align="center"><h4><b th:text="${e.sumPar}"/></h4></td>
+<!--                <td style="vertical-align: bottom; background-color: #9b9b9b" align="center"><h4></h4></td>-->
+                <td style="vertical-align: bottom" align="center"><h4><b th:text="${e.sumPenalty}"/></h4></td>
+                <td style="vertical-align: bottom" align="center"><h4><b th:text="${e.sumGrossScore}"/></h4></td>
+
+                <!--                <td style="vertical-align: bottom" align="center"><h4></h4></td>-->
+                <td style="vertical-align: bottom; background-color: #9b9b9b" align="center"><h4></h4></td>
+                <td style="vertical-align: bottom" align="center"><h4><b th:text="${e.sumNetScore}"/></h4></td>
+                <td style="vertical-align: bottom" align="center"><h4><b th:text="${e.sumNetScorePar}"/></h4></td>
+                <td style="vertical-align: bottom" align="center"><h4><b th:text="${e.sumScoreSubtractPar}"/></h4></td>
+                <td style="vertical-align: bottom" align="center"><h4><b th:text="${e.sumScoreSubtractParHcp}"/></h4></td>
+                <td style="vertical-align: bottom" align="center"><h4><b th:text="${e.sumStableford}"/></h4></td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+
+
+

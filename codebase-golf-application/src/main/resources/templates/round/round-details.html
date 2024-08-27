@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Competition Round details</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{/js/action.js}"></script>
+    <link th:href="@{/styles/main.css}" rel="stylesheet"/>
+
+</head>
+
+<style>
+</style>
+
+<body>
+
+<!-- Header -->
+<header th:insert="~{blocks/header :: header}"></header>
+
+<div>
+
+    <div class="one-line-elements">
+
+        <!-- Client details data -->
+        <h3><span>COMPETITION ROUND DETAILS</span></h3>
+
+        <!-- Update competition details button -->
+        <a th:href="'/round/' + ${round.id} + '/edit'" class="btn btn-secondary btn-lg active" role="button"
+           aria-pressed="true"><h5>Update competition round data</h5></a>
+    </div>
+
+    <!-- Table with competition details -->
+    <table class="table_for_details">
+
+        <tbody th:each="e : ${round}">
+            <tr>
+                <th>Competition name:</th>
+                <td th:text="${e.competition.name}"/>
+            </tr>
+            <tr>
+                <th>Competition Round ID:</th>
+                <td th:text="${e.id}"/>
+            </tr>
+            <tr>
+                <th>Competition Round №:</th>
+                <td th:text="${e.roundNumber}"/>
+            </tr>
+            <tr>
+                <th>Date:</th>
+                <td th:text="${#temporals.format(e.date, 'dd.MM.yyyy')}"></td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="one-line-elements-no-bottom-margin">
+        <h5>List of players of Round №<span th:text="${round.roundNumber}"></span></h5>
+    </div>
+
+    <!-- Table to display players -->
+    <div class="table-main-pages">
+        <table class="table table-sm" id="playerTable">
+            <thead>
+            <tr mr-1>
+                <th scope="col">№</th>
+                <th scope="col">Player ID</th>
+                <th scope="col">Player Surname Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="e : ${round.roundplayers}">
+                <tr mr-1>
+                    <td><a th:href="'/player/' + ${e.id}"><h6 th:text="${e.id}"/></a></td>
+                    <td><a th:href="'/player/' + ${e.id}"><h6 th:text="${e.surname} + ' ' + ${e.name}"/></a></td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // Get the table body element
+        var tableBody = document.getElementById('playerTable').getElementsByTagName('tbody')[0];
+
+        // Retrieve all rows in the table body
+        var rows = tableBody.getElementsByTagName('tr');
+
+        // Iterate over each row and add row numbers
+        for (var i = 0; i < rows.length; i++) {
+            // Create a new cell element for the row number
+            var cell = document.createElement('td');
+
+            // cell.style.padding = '0px'; // Adjust padding as needed
+            cell.style.height = '20px'; // Adjust padding as needed
+
+            // Set the row number (index + 1) as the cell content
+            cell.textContent = i + 1;
+
+            // Insert the cell at the beginning of the row
+            rows[i].insertBefore(cell, rows[i].firstChild);
+        }
+    </script>
+
+    <div class="one-line-elements">
+
+    <!-- Delete competition button -->
+        <form th:action="'/competition-round/' + ${round.id} + '/remove'" method="post" class="form-inline">
+            <button class="btn btn-danger btn-lg active" type="submit" onclick="return confirmDelete()">
+                <h5>Delete competition</h5></button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:insert="~{blocks/footer :: footer}"></div>
+
+</body>
+</html>

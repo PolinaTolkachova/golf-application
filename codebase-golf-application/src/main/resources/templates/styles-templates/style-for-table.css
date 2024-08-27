@@ -1,0 +1,120 @@
+.container{
+    max-width: 1580px;
+}
+
+.mtb-3{
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+
+.table-scorecard{
+    font-family: Arial, sans-serif;
+    table-layout: fixed;
+    width: 100%;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	border-collapse: collapse;
+	white-space: nowrap;
+}
+.abcd-text{
+    font-size: 20px;
+}
+
+.main-scoretable-head-fontsize{
+    font-size: 11px;
+}
+
+.table-scorecard th, .table-scorecard td{
+    /*font-size: 10px;*/
+    text-align: center;
+    padding: 8px;
+}
+
+.font-size{
+    font-family: "Arial";
+    font-size: 14px;
+}
+
+.table-scorecard tr{
+	transition: all .3s;
+}
+
+.table-scorecard tr:hover{
+	background-color: #ccc;
+}
+
+.table-scorecard td, th{
+    border: 1px solid dimgray;
+}
+/*.table-scorecard td:not(:last-child){*/
+/*    border-right: 1px solid dimgray;*/
+/*}*/
+
+.table-responsive{
+	overflow-x: auto;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1000px) {
+
+	.table-2{
+		display: block;
+		width: 100%;
+	}
+
+	.table-2 thead, 
+    .table-2 tbody, 
+    .table-2 thead th {
+        display: block;
+    }
+
+    .table-2 thead {
+        float: left;
+    }
+
+    .table-2 tbody{
+    	overflow-x: auto;
+    }
+
+    .table-2 tbody tr {
+        display: table-cell;
+        border-right: 1px solid #ccc;
+    }
+
+    .table-2 tbody tr:last-child{
+    	border-right: none;
+    }
+
+    .table-2 td{
+    	display: block;
+    }
+
+    .table.table-2 td{
+        border-right: none;
+    }
+
+    .table-2 td, .table-2 th {
+        padding: 10px 2px;
+        box-sizing: border-box;
+        overflow: hidden;
+        width: 160px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+
+}
+
+@media (max-width: 1000px) {
+
+	.table-3 tr{
+        display: block;
+        margin-bottom: 30px;
+    }
+    .table-3 th, .table-3 td{
+        display: block;
+        text-align: center;
+    }
+    .table.table-3 td{
+        border-right: none;
+    }
+
+}

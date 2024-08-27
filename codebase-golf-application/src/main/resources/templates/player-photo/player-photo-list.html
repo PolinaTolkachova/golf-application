@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Add your head content here -->
+</head>
+
+<body>
+    <h1>Player's photos</h1>
+
+    <div th:if="${playerPhotoDTOs != null}">
+        <div th:each="playerPhotoDTO : ${playerPhotoDTOs}">
+            <h3 th:text="${playerPhotoDTO.name}">Image Name</h3>
+            <a th:href=" '/player-photo/player-photo/' + ${playerPhotoDTO.id} ">
+            <img th:src="|data:scoreCardImage/jpeg;base64,${playerPhotoDTO.base64Data}|" alt="PlayerPhoto" style="width: 300px; height: auto; margin: 10px;"/>
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>
