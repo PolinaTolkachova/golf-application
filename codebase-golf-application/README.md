@@ -5,7 +5,7 @@ Golf App
 To run this project locally, follow these steps:
 
 1. Clone the repository to your local machine:
-   https://github.com/PolinaTolkachova/golf-application/tree/main/codebase-golf-application
+   https://github.com/PolinaTolkachova/golf-application
 
 2. Navigate to the project directory:
    ```
