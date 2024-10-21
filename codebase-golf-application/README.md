@@ -5,7 +5,7 @@ Golf App
 To run this project locally, follow these steps:
 
 1. Clone the repository to your local machine:
-   https://git.epam.com/epm-ease/research/codebase-golf-application
+   https://github.com/PolinaTolkachova/golf-application/tree/main/codebase-golf-application
 
 2. Navigate to the project directory:
    ```
