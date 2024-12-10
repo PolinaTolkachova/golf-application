@@ -10,7 +10,7 @@
         <relativePath />
     </parent>
     <groupId>com.golf</groupId>
-    <artifactId>codebase-golf-application</artifactId>
+    <artifactId>golf-application</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Golf App</name>
     <description>Project for Golf club management</description>
