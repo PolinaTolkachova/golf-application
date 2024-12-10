@@ -20,7 +20,7 @@ To run this project locally, follow these steps:
 2. Install and start the MySQL server
 3. Navigate to the project directory:
    ```bash
-   cd codebase-golf-application
+   cd golf-application
    ```
 4. Change the application configuration to the local configuration in the `src/main/resources/application.properties` file
 5. Install the project:
