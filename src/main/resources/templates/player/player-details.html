@@ -51,12 +51,8 @@
 
 
     <!-- Display scoreCardImage -->
-    <img th:if="${imageData != null}" th:src="'data:scoreCardImage/png;base64,' + ${#strings.bytesToBase64(imageData)}" alt="Player Image" />
-
-    <!-- Display scoreCardImage -->
-    <img th:src="|data:scoreCardImage/jpeg;base64,${playerPhotoDto.base64Data}|" alt="Image" style="width: 300px; height: auto; margin: 10px;"/>
-
-
+    <img th:if="${playerPhotoDto != null}" th:src="|data:scoreCardImage/jpeg;base64,${playerPhotoDto.base64Data}|" alt="Player Photo" style="width: 300px; height: auto; margin: 10px;"/>
+    <img th:if="${playerPhotoDto == null}"                                                                         alt="Player Photo" style="width: 300px; height: auto; margin: 10px;"/>
 
     <!-- Table with player details -->
     <table class="table_for_details">
