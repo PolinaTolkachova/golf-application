@@ -1,5 +1,20 @@
 package com.golf.app.controller;
 
+import java.util.Base64;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.golf.app.dto.PlayerPhotoDto;
 import com.golf.app.exception.PlayerNotFoundException;
 import com.golf.app.model.Player;
@@ -7,17 +22,8 @@ import com.golf.app.model.PlayerPhoto;
 import com.golf.app.service.PlayerPhotoService;
 import com.golf.app.service.PlayerService;
 import com.golf.app.utils.ValidationUtils;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import jakarta.validation.Valid;
 
 /**
  * This class is a controller class for Client entity.
@@ -101,14 +107,13 @@ public class PlayerController {
         Player player = playerService.getPlayerById(id)
                 .orElseThrow(() -> new PlayerNotFoundException("Player by ID not found"));
 
-        Optional<PlayerPhoto> playerPhoto = playerPhotoService.findPlayerPhotoById(player.getPhotoId());
         PlayerPhotoDto playerPhotoDto = null;
-        if (playerPhoto.isPresent()) {
-            playerPhotoDto = new PlayerPhotoDto(playerPhoto.get().getId(), playerPhoto.get().getName(), Base64.getEncoder().encodeToString(playerPhoto.get().getData()));
-        } else {
-            playerPhoto = playerPhotoService.findPlayerPhotoById(1L);
-            playerPhotoDto = new PlayerPhotoDto(playerPhoto.get().getId(), playerPhoto.get().getName(), Base64.getEncoder().encodeToString(playerPhoto.get().getData()));
 
+        Long photoId = player.getPhotoId() != null ? player.getPhotoId() : 1L;
+        Optional<PlayerPhoto> playerPhoto = playerPhotoService.findPlayerPhotoById(photoId);
+        if (playerPhoto.isPresent()) {
+                playerPhotoDto = new PlayerPhotoDto(playerPhoto.get().getId(), playerPhoto.get().getName(),
+                        Base64.getEncoder().encodeToString(playerPhoto.get().getData()));
         }
 
         model.addAttribute(PLAYER_ATTRIBUTE, player);
